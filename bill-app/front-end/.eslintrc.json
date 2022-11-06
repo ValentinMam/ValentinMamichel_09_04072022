@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": "eslint:recommended",
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "arrow-body-style": ["error", "always"],
+    "curly": ["error", "all"],
+    "dot-notation": "error",
+    "no-confusing-arrow": "error",
+    "no-var": "error",
+    "block-spacing": "error",
+    "no-multi-spaces": "error"
+  }
+}
