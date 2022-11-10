@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 // ESLint : 'onNavigate' is not defined
-// ESLint : 'e' is defined but never used !!!
+// ESLint : 'e' is defined but never used
 
 import store from './Store.js'
 import Login, { PREVIOUS_LOCATION } from '../containers/Login.js'
