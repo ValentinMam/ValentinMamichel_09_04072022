@@ -417,3 +417,116 @@ D:\Développeur d'application\ValentinMamichel_09_04072022\bill-app\front-end\sr
 ```
 - 259 problems (259 errors, 0 warnings)
 
+# 10/11/22
+
+## Front-End 
+
+
+```
+npm run test
+```
+
+```
+ FAIL  src/__tests__/Bills.js (28.725 s)
+  ● Given I am connected as an employee › When I am on Bills Page › Then bills should be ordered from earliest to latest
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+        "2004-04-04",
+    +   "2001-01-01",
+        "2003-03-03",
+        "2002-02-02",
+    -   "2001-01-01",
+      ]
+
+ PASS  src/__tests__/Login.js (29.487 s)
+ PASS  src/__tests__/Dashboard.js (31.305 s)  
+ PASS  src/__tests__/routes.js
+ PASS  src/__tests__/Actions.js
+ PASS  src/__tests__/DashboardFormUI.js       
+ PASS  src/__tests__/Logout.js (5.326 s)      
+ PASS  src/__tests__/VerticalLayout.js
+ PASS  src/__tests__/NewBill.js
+ PASS  src/__tests__/ErrorPage.js
+ PASS  src/__tests__/LoadingPage.js
+---------------------|---------|----------|---------|---------|---------------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+---------------------|---------|----------|---------|---------|---------------------------------
+All files            |   69.04 |    77.17 |   63.24 |   69.04 |                                 
+ constants           |     100 |      100 |     100 |     100 |                                 
+  routes.js          |     100 |      100 |     100 |     100 |                                 
+  usersTest.js       |       0 |        0 |       0 |       0 |                                 
+ containers          |      63 |    63.16 |   52.83 |      63 |                                 
+  Bills.js           |   48.28 |       50 |      25 |   48.28 | 17,22-23,31,35-42,51-70        
+  Dashboard.js       |   88.24 |    76.74 |   79.17 |   88.24 | 23,89,92,95,109,139,142,180-182
+  Login.js           |   73.17 |        0 |   45.45 |   73.17 | 46,70,82-94,99-115
+  Logout.js          |     100 |      100 |     100 |     100 | 
+  NewBill.js         |       0 |        0 |       0 |       0 | 6-90
+ views               |     100 |      100 |     100 |     100 | 
+  Actions.js         |     100 |      100 |     100 |     100 | 
+  BillsUI.js         |     100 |      100 |     100 |     100 |                                 
+  DashboardFormUI.js |     100 |      100 |     100 |     100 | 
+  DashboardUI.js     |     100 |      100 |     100 |     100 | 
+  ErrorPage.js       |     100 |      100 |     100 |     100 | 
+  LoadingPage.js     |     100 |      100 |     100 |     100 | 
+  LoginUI.js         |     100 |      100 |     100 |     100 | 
+  NewBillUI.js       |     100 |      100 |     100 |     100 | 
+  VerticalLayout.js  |     100 |      100 |     100 |     100 | 
+---------------------|---------|----------|---------|---------|---------------------------------
+
+Test Suites: 1 failed, 10 passed, 11 total
+Tests:       1 failed, 41 passed, 42 total
+Snapshots:   0 total
+Time:        54.711 s
+
+```
+
+- Résultat des premiers tests : 
+
+Test Suites: 2 failed, 9 passed, 11 total
+Tests:       3 failed, 39 passed, 42 total
+Snapshots:   0 total
+
+- Résultat des tests après lint : 
+
+Test Suites: 1 failed, 10 passed, 11 total
+Tests:       1 failed, 41 passed, 42 total
+Snapshots:   0 total
+
+
+
+```
+npm run lint
+```
+
+```
+D:\Développeur d'application\ValentinMamichel_09_04072022\bill-app\front-end\src\__tests__\Bills.js
+  37:13  error  'windowIcon' is assigned a value but never used  no-unused-vars
+
+D:\Développeur d'application\ValentinMamichel_09_04072022\bill-app\front-end\src\__tests__\NewBill.js
+  11:10  error  'screen' is defined but never used   no-unused-vars
+  13:8   error  'NewBill' is defined but never used  no-unused-vars
+
+D:\Développeur d'application\ValentinMamichel_09_04072022\bill-app\front-end\src\app\datepicker.js
+  10:7  error  'WEEK' is assigned a value but never used      no-unused-vars
+  12:7  error  'weekdays' is assigned a value but never used  no-unused-vars
+  63:7  error  'Datepicker' is defined but never used         no-unused-vars
+
+D:\Développeur d'application\ValentinMamichel_09_04072022\bill-app\front-end\src\views\Actions.js
+  4:8  error  'downloadBlueIcon' is defined but never used  no-unused-vars
+
+✖ 7 problems (7 errors, 0 warnings)
+```
+
+- Premiers résultats : 
+
+✖ 259 problems (259 errors, 0 warnings) 
+
+- Résultats après premier lint : 
+
+✖ 7 problems (7 errors, 0 warnings)
+
