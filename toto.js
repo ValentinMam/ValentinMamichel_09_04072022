@@ -1,0 +1,1 @@
+// toto.js est un fichier de test
