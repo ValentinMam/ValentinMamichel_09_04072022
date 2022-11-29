@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 //  ESLint : 'WEEK' is assigned a value but never used !!!
 //  ESLint : 'weekdays' is assigned a value but never used !!!
 //  ESLint : 'Datepicker' is defined but never used !!!
