@@ -19,9 +19,13 @@ const row = (bill) => {
     `
 }
 
+//  RESOLUTION BUG !!!
 const rows = (data) => {
   return data && data.length
     ? data
+        .sort((a, b) => {
+          return a.date < b.date ? 1 : -1
+        })
         .map((bill) => {
           return row(bill)
         })
