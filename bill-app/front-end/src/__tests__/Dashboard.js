@@ -23,39 +23,52 @@ jest.mock('../app/store', () => {
   return mockStore
 })
 
+// je suis connecté en tant qu'administrateur
 describe('Given I am connected as an Admin', () => {
+  // je suis sur la page dashboard, il y a des factures et une facture est en attente
   describe('When I am on Dashboard page, there are bills, and there is one pending', () => {
+    //les factures filtrées par statut en attente devraient renvoyer une facture
     test('Then, filteredBills by pending status should return 1 bill', () => {
       const filtered_bills = filteredBills(bills, 'pending')
       expect(filtered_bills.length).toBe(1)
     })
   })
+  // je suis sur la page dashboard, il y a des factures et une facture est validée
   describe('When I am on Dashboard page, there are bills, and there is one accepted', () => {
+    //les factures filtrées par statut acceptée devraient renvoyer une facture
     test('Then, filteredBills by accepted status should return 1 bill', () => {
       const filtered_bills = filteredBills(bills, 'accepted')
       expect(filtered_bills.length).toBe(1)
     })
   })
+  // je suis sur la page dashboard, il y a des factures et deux factures sont refusées
   describe('When I am on Dashboard page, there are bills, and there is two refused', () => {
-    test('Then, filteredBills by accepted status should return 2 bills', () => {
+    //les factures filtrées par statut refusée devraient renvoyer deux factures
+    test('Then, filteredBills by refused status should return 2 bills', () => {
       const filtered_bills = filteredBills(bills, 'refused')
       expect(filtered_bills.length).toBe(2)
     })
   })
+  //  je susi sur la page dashboard mais elle est en train de charger
   describe('When I am on Dashboard page but it is loading', () => {
+    //devrait mettre la page demandée au chargement
     test('Then, Loading page should be rendered', () => {
       document.body.innerHTML = DashboardUI({ loading: true })
       expect(screen.getAllByText('Loading...')).toBeTruthy()
     })
   })
+  // je suis sur la page dashboard mais il y a une erreur sur le backend
   describe('When I am on Dashboard page but back-end send an error message', () => {
+    //devrait mettre la page d'erreur
     test('Then, Error page should be rendered', () => {
       document.body.innerHTML = DashboardUI({ error: 'some error message' })
       expect(screen.getAllByText('Erreur')).toBeTruthy()
     })
   })
 
+  //  je suis sur la page dashboard et je clique sur une fleche
   describe('When I am on Dashboard page and I click on arrow', () => {
+    //la liste des factures devrait se dérouler et les cartes devraient apparaitre
     test('Then, tickets list should be unfolding, and cards should appear', async () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
@@ -73,7 +86,7 @@ describe('Given I am connected as an Admin', () => {
         document,
         onNavigate,
         store: null,
-        bills,
+        bills: bills,
         localStorage: window.localStorage,
       })
       document.body.innerHTML = DashboardUI({ data: { bills } })
@@ -96,28 +109,30 @@ describe('Given I am connected as an Admin', () => {
       userEvent.click(icon1)
       expect(handleShowTickets1).toHaveBeenCalled()
       await waitFor(() => {
-        return screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')
+        return screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`)
       })
-      expect(screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')).toBeTruthy()
+      expect(screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`)).toBeTruthy()
       icon2.addEventListener('click', handleShowTickets2)
       userEvent.click(icon2)
       expect(handleShowTickets2).toHaveBeenCalled()
       await waitFor(() => {
-        return screen.getByTestId('open-billUIUZtnPQvnbFnB0ozvJh')
+        return screen.getByTestId(`open-billUIUZtnPQvnbFnB0ozvJh`)
       })
-      expect(screen.getByTestId('open-billUIUZtnPQvnbFnB0ozvJh')).toBeTruthy()
+      expect(screen.getByTestId(`open-billUIUZtnPQvnbFnB0ozvJh`)).toBeTruthy()
 
       icon3.addEventListener('click', handleShowTickets3)
       userEvent.click(icon3)
       expect(handleShowTickets3).toHaveBeenCalled()
       await waitFor(() => {
-        return screen.getByTestId('open-billBeKy5Mo4jkmdfPGYpTxZ')
+        return screen.getByTestId(`open-billBeKy5Mo4jkmdfPGYpTxZ`)
       })
-      expect(screen.getByTestId('open-billBeKy5Mo4jkmdfPGYpTxZ')).toBeTruthy()
+      expect(screen.getByTestId(`open-billBeKy5Mo4jkmdfPGYpTxZ`)).toBeTruthy()
     })
   })
 
+  //  je suis sur la page dashboard et je clique sur l'icone d'édtion
   describe('When I am on Dashboard page and I click on edit icon of a card', () => {
+    //le bon formulaire doit apparaitre
     test('Then, right form should be filled', () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
@@ -135,7 +150,7 @@ describe('Given I am connected as an Admin', () => {
         document,
         onNavigate,
         store: null,
-        bills,
+        bills: bills,
         localStorage: window.localStorage,
       })
       document.body.innerHTML = DashboardUI({ data: { bills } })
@@ -146,14 +161,16 @@ describe('Given I am connected as an Admin', () => {
       icon1.addEventListener('click', handleShowTickets1)
       userEvent.click(icon1)
       expect(handleShowTickets1).toHaveBeenCalled()
-      expect(screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')).toBeTruthy()
+      expect(screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`)).toBeTruthy()
       const iconEdit = screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')
       userEvent.click(iconEdit)
-      expect(screen.getByTestId('dashboard-form')).toBeTruthy()
+      expect(screen.getByTestId(`dashboard-form`)).toBeTruthy()
     })
   })
 
+  // je suis sur la page dashboard et je clique deux fois sur l'icone d'édition
   describe('When I am on Dashboard page and I click 2 times on edit icon of a card', () => {
+    // l'icone doit apparaitre
     test('Then, big bill Icon should Appear', () => {
       const onNavigate = (pathname) => {
         document.body.innerHTML = ROUTES({ pathname })
@@ -171,7 +188,7 @@ describe('Given I am connected as an Admin', () => {
         document,
         onNavigate,
         store: null,
-        bills,
+        bills: bills,
         localStorage: window.localStorage,
       })
       document.body.innerHTML = DashboardUI({ data: { bills } })
@@ -183,7 +200,7 @@ describe('Given I am connected as an Admin', () => {
       icon1.addEventListener('click', handleShowTickets1)
       userEvent.click(icon1)
       expect(handleShowTickets1).toHaveBeenCalled()
-      expect(screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')).toBeTruthy()
+      expect(screen.getByTestId(`open-bill47qAXb6fIm2zOKkLzMro`)).toBeTruthy()
       const iconEdit = screen.getByTestId('open-bill47qAXb6fIm2zOKkLzMro')
       userEvent.click(iconEdit)
       userEvent.click(iconEdit)
@@ -192,7 +209,9 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
+  //  je suis sur la page dashboard et il n'y a pas de facture
   describe('When I am on Dashboard and there are no bills', () => {
+    // aucune facture n'apparaît
     test('Then, no cards should be shown', () => {
       document.body.innerHTML = cards([])
       const iconEdit = screen.queryByTestId('open-bill47qAXb6fIm2zOKkLzMro')
@@ -201,8 +220,11 @@ describe('Given I am connected as an Admin', () => {
   })
 })
 
+// je suis connecté en tant qu'administrateur, je suis sur la page dashboard et je clique sur une facture en attente
 describe('Given I am connected as Admin, and I am on Dashboard page, and I clicked on a pending bill', () => {
+  // je clique sur le bouton acceptée
   describe('When I click on accept button', () => {
+    //je suis renvoyé vers le tableau de bord et la facture en attente est passé dans validé
     test('I should be sent on Dashboard with big billed icon instead of form', () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem(
@@ -237,7 +259,9 @@ describe('Given I am connected as Admin, and I am on Dashboard page, and I click
     })
   })
   describe('When I click on refuse button', () => {
+    // je clique sur le bouton refusée
     test('I should be sent on Dashboard with big billed icon instead of form', () => {
+      //je suis renvoyé vers le tableau de bord et la facture en attente est passé dans refusée
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem(
         'user',
@@ -271,8 +295,11 @@ describe('Given I am connected as Admin, and I am on Dashboard page, and I click
   })
 })
 
+// je suis connecté en tant qu'administrateur, je suis sur la page dashboard et je clique sur une facture
 describe('Given I am connected as Admin and I am on Dashboard page and I clicked on a bill', () => {
+  //quand je clique sur l'icone oeil
   describe('When I click on the icon eye', () => {
+    //une modal s'ouvre
     test('A modal should open', () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem(
@@ -306,9 +333,15 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
   })
 })
 
-// test d'intégration GET
+// test d'intégration GET ==> ERROR 404 and 500
+// ERROR 404 = page not found, ressources not found
+// ERROR 500 = Internal Server Error
+
+//je suis un utilisateur connecté en tant qu'admin
 describe('Given I am a user connected as Admin', () => {
+  //  je navigue vers la page dashboard
   describe('When I navigate to Dashboard', () => {
+    // un fetch est lancé pour récupérer les factures de mockAPI
     test('fetches bills from mock API GET', async () => {
       localStorage.setItem(
         'user',
@@ -328,52 +361,52 @@ describe('Given I am a user connected as Admin', () => {
       expect(contentRefused).toBeTruthy()
       expect(screen.getByTestId('big-billed-icon')).toBeTruthy()
     })
-    describe('When an error occurs on API', () => {
-      beforeEach(() => {
-        jest.spyOn(mockStore, 'bills')
-        Object.defineProperty(window, 'localStorage', {
-          value: localStorageMock,
+  })
+  // une erreur survient sur l'API
+  describe('When an error occurs on API', () => {
+    beforeEach(() => {
+      jest.spyOn(mockStore, 'bills')
+      Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+      window.localStorage.setItem(
+        'user',
+        JSON.stringify({
+          type: 'Admin',
+          email: 'a@a',
         })
-        window.localStorage.setItem(
-          'user',
-          JSON.stringify({
-            type: 'Admin',
-            email: 'a@a',
-          })
-        )
-        const root = document.createElement('div')
-        root.setAttribute('id', 'root')
-        document.body.appendChild(root)
-        router()
+      )
+      const root = document.createElement('div')
+      root.setAttribute('id', 'root')
+      document.body.appendChild(root)
+      router()
+    })
+    //  je fectch les factures de l'API mais une erreur 404 survient
+    test('fetches bills from an API and fails with 404 message error', async () => {
+      mockStore.bills.mockImplementationOnce(() => {
+        return {
+          list: () => {
+            return Promise.reject(new Error('Erreur 404'))
+          },
+        }
       })
-      test('fetches bills from an API and fails with 404 message error', async () => {
-        mockStore.bills.mockImplementationOnce(() => {
-          return {
-            list: () => {
-              return Promise.reject(new Error('Erreur 404'))
-            },
-          }
-        })
-        window.onNavigate(ROUTES_PATH.Dashboard)
-        await new Promise(process.nextTick)
-        const message = await screen.getByText(/Erreur 404/)
-        expect(message).toBeTruthy()
+      window.onNavigate(ROUTES_PATH.Dashboard)
+      await new Promise(process.nextTick)
+      const message = screen.getByText(/Erreur 404/)
+      expect(message).toBeTruthy()
+    })
+    //  je fectch les factures de l'API mais une erreur 500 survient
+    test('fetches messages from an API and fails with 500 message error', async () => {
+      mockStore.bills.mockImplementationOnce(() => {
+        return {
+          list: () => {
+            return Promise.reject(new Error('Erreur 500'))
+          },
+        }
       })
 
-      test('fetches messages from an API and fails with 500 message error', async () => {
-        mockStore.bills.mockImplementationOnce(() => {
-          return {
-            list: () => {
-              return Promise.reject(new Error('Erreur 500'))
-            },
-          }
-        })
-
-        window.onNavigate(ROUTES_PATH.Dashboard)
-        await new Promise(process.nextTick)
-        const message = await screen.getByText(/Erreur 500/)
-        expect(message).toBeTruthy()
-      })
+      window.onNavigate(ROUTES_PATH.Dashboard)
+      await new Promise(process.nextTick)
+      const message = screen.getByText(/Erreur 500/)
+      expect(message).toBeTruthy()
     })
   })
 })
