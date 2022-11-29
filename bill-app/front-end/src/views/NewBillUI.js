@@ -4,7 +4,7 @@ export default () => {
   return `
     <div class='layout'>
       ${VerticalLayout(120)}
-      <div class='content'>
+        <div class='content'>
         <div class='content-header'>
           <div class='content-title'> Envoyer une note de frais </div>
         </div>
@@ -54,14 +54,15 @@ export default () => {
                   </div>
                   <div class="col-half">
                     <label for="file" class="bold-label">Justificatif</label>
-                    <input required type="file" class="form-control blue-border" data-testid="file" />
+                    <input required type="file" accept="image/png, image/jpeg, image/jpg"  class="form-control blue-border" data-testid="file" />
+                    <p class= "message" hidden id = "message">Merci de bien vouloir utiliser les formats JPEG, JPG ou PNG.  svp</p>
                   </div>
                 </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="col-half">
-                  <button type="submit" id='btn-send-bill' class="btn btn-primary">Envoyer</button>
+                  <button type="submit" data-testid="btn-send-bill" id='btn-send-bill' class="btn btn-primary">Envoyer</button>
                 </div>
               </div>
             </div>
